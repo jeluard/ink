@@ -1,0 +1,34 @@
+{
+    "name": "Ink template",
+    "context": "..",
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash",
+      "lldb.executable": "/usr/bin/lldb"
+    },
+    "extensions": [
+      "rust-lang.rust",
+      "bungcip.better-toml",
+      "vadimcn.vscode-lldb"
+    ],
+    "forwardPorts": [
+      3000,
+      9944
+    ],
+    "preCreateCommand": ["rustup update nightly",
+                         "rustup component add rust-src --toolchain nightly",
+                         "rustup install stable",
+                         "rustup target add wasm32-unknown-unknown --toolchain stable",
+                         "cargo install canvas-node --git https://github.com/paritytech/canvas-node.git --tag v0.1.4 --force --locked",
+                         "cargo install cargo-contract --vers 0.8.0 --force --locked"],
+    "postStartCommand": "canvas --dev --tmp",
+    "menuActions": [
+      {"id": "polkadotjs",
+       "label": "Open PolkadotJS Apps",
+       "type": "external-preview",
+       "args": ["https://polkadot.js.org/apps/?rpc=wss%3A%2F%2F/$HOST/wss"]},
+     {"id": "canvas-ui",
+      "label": "Open Canvas UI",
+      "type": "external-preview",
+      "args": ["https://paritytech.github.io/canvas-ui/?rpc=wss%3A%2F%2F/$HOST/wss"]}
+    ]
+  }
